@@ -4,9 +4,11 @@ Una plataforma de desarrollo con integración de IA para asistencia en el desarr
 
 ## Requisitos Previos
 
-- [Docker](https://docs.docker.com/get-docker/) (versión 20.10 o superior)
-- [Docker Compose](https://docs.docker.com/compose/install/) (versión 2.0 o superior)
+- [Docker](https://docs.docker.com/get-docker/) (versión 24.0 o superior recomendado)
+- [Docker Compose](https://docs.docker.com/compose/install/) (incluido con Docker Desktop, o versión standalone v2)
 - Python 3.11+ (para desarrollo local sin Docker)
+
+> **Nota:** Los comandos en esta documentación usan la sintaxis `docker-compose`. Si usas Docker Compose v2 integrado, puedes usar `docker compose` (sin guión) como alternativa.
 
 ## Cómo Lanzar la Plataforma
 
@@ -30,8 +32,12 @@ Una plataforma de desarrollo con integración de IA para asistencia en el desarr
 
 4. **Acceder a la plataforma:**
    - Backend API: http://localhost:5000
-   - Frontend: http://localhost:8080
    - Ollama API: http://localhost:11434
+
+> **Nota:** El frontend está definido en `docker-compose.yml` pero requiere que se cree el directorio `frontend/` con su Dockerfile antes de usar todos los servicios. Para iniciar solo backend y Ollama:
+> ```bash
+> docker-compose up -d ollama backend
+> ```
 
 ### Detener la Plataforma
 
@@ -121,24 +127,27 @@ Puedes configurar las siguientes variables de entorno:
 
 ```
 ai-dev-platform/
-├── backend/
-│   ├── Dockerfile
-│   ├── requirements.txt
-│   └── integrations/
-│       └── git_integration.py
-├── docker-compose.yml
-├── pytest.ini
-├── .gitignore
-└── README.md
+├── backend/                    # Servicio backend Flask
+│   ├── Dockerfile              # Configuración Docker del backend
+│   ├── requirements.txt        # Dependencias Python
+│   └── integrations/           # Módulos de integración
+│       └── git_integration.py  # Integración con Git
+├── frontend/                   # Directorio frontend (por implementar)
+├── docker-compose.yml          # Orquestación de servicios Docker
+├── pytest.ini                  # Configuración de pytest
+├── .gitignore                  # Archivos ignorados por Git
+└── README.md                   # Esta documentación
 ```
+
+> **Nota:** El directorio `frontend/` está referenciado en `docker-compose.yml` pero aún no ha sido implementado.
 
 ## Servicios
 
-| Servicio | Puerto | Descripción |
-|----------|--------|-------------|
-| Backend | 5000 | API Flask para lógica de negocio |
-| Frontend | 8080 | Interfaz de usuario |
-| Ollama | 11434 | Servicio de IA local |
+| Servicio | Puerto | Descripción | Estado |
+|----------|--------|-------------|--------|
+| Backend | 5000 | API Flask para lógica de negocio | ✅ Disponible |
+| Frontend | 8080 | Interfaz de usuario | ⚠️ Por implementar |
+| Ollama | 11434 | Servicio de IA local | ✅ Disponible |
 
 ## Solución de Problemas
 
