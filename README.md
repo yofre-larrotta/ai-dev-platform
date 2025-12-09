@@ -52,6 +52,32 @@ docker-compose down -v
 
 ## Cómo Ejecutar Pruebas
 
+### Ejecutar Pruebas con Todas las Funciones
+
+El proyecto está configurado con `pytest.ini` que incluye todas las opciones de prueba. Para ejecutar las pruebas con todas las funciones (verbose, cobertura, marcadores estrictos):
+
+**Con Docker:**
+```bash
+docker-compose exec backend pytest --verbose --strict-markers --cov=backend --cov-report=html --cov-report=term-missing
+```
+
+**Localmente:**
+```bash
+pytest --verbose --strict-markers --cov=backend --cov-report=html --cov-report=term-missing
+```
+
+> **Nota:** Estas opciones ya están configuradas en `pytest.ini`, por lo que ejecutar solo `pytest` aplicará automáticamente todas las funciones.
+
+### Opciones de Prueba Disponibles
+
+| Opción | Descripción |
+|--------|-------------|
+| `--verbose` | Salida detallada de cada prueba |
+| `--strict-markers` | Validación estricta de marcadores |
+| `--cov=backend` | Cobertura de código del backend |
+| `--cov-report=html` | Reporte de cobertura en HTML |
+| `--cov-report=term-missing` | Muestra líneas sin cobertura en terminal |
+
 ### Ejecutar Pruebas con Docker
 
 ```bash
@@ -71,25 +97,34 @@ docker-compose exec backend pytest
    pip install -r backend/requirements.txt
    ```
 
-3. **Ejecutar las pruebas:**
+3. **Ejecutar todas las pruebas con todas las funciones:**
    ```bash
    pytest
    ```
 
-4. **Ejecutar pruebas con cobertura:**
-   ```bash
-   pytest --cov=backend --cov-report=html
-   ```
-
-5. **Ejecutar solo pruebas unitarias:**
+4. **Ejecutar solo pruebas unitarias:**
    ```bash
    pytest -m unit
    ```
 
-6. **Ejecutar solo pruebas de integración:**
+5. **Ejecutar solo pruebas de integración:**
    ```bash
    pytest -m integration
    ```
+
+6. **Ejecutar pruebas lentas:**
+   ```bash
+   pytest -m slow
+   ```
+
+### Ver Reporte de Cobertura
+
+Después de ejecutar las pruebas, el reporte de cobertura HTML estará disponible en:
+```bash
+open htmlcov/index.html  # macOS
+xdg-open htmlcov/index.html  # Linux
+start htmlcov/index.html  # Windows
+```
 
 ## Desarrollo Local
 
