@@ -51,7 +51,7 @@ docker-compose down
 - **URL**: http://localhost:8080
 - **Description**: React-based user interface
 - **Environment Variables**:
-  - `REACT_APP_API_URL`: Backend API URL (default: http://backend:5000)
+  - `REACT_APP_API_URL`: Backend API URL (default in Docker: http://backend:5000, default locally: http://localhost:5000)
   - `NODE_ENV`: Node environment (development/production)
 
 ### Backend (Flask)
