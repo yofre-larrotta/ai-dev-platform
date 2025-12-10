@@ -24,8 +24,8 @@ function App() {
     };
 
     checkBackend();
-    // Check every 10 seconds
-    const interval = setInterval(checkBackend, 10000);
+    // Check every 30 seconds
+    const interval = setInterval(checkBackend, 30000);
     return () => clearInterval(interval);
   }, [apiUrl]);
 
